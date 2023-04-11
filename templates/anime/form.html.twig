@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ anime is defined ? 'Editar' : 'Novo' }} Anime{% endblock %}
+
+{% block body %}
+    {{ form_start(animeForm) }}
+    {{ form_row(animeForm.Nome) }}
+    {{ form_row(animeForm.Temporadas) }}
+    {{ form_row(animeForm.quantidadeeps) }}
+    {{ form_widget(animeForm.save, {'attr': {'class': 'btn-dark'}}) }}
+    {{ form_end(animeForm) }}
+{% endblock %}
