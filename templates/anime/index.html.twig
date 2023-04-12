@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Controle de Anime{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+    <a href="{{ path('app_anime_form') }}" class="btn btn-dark mb-3">Adicionar</a>
+    {% endif %}
+
+    <ul class="list-group">
+        {% for anime in animeList %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ anime.Nome }} tem {{ anime.Temporadas }} temporada(s) e {{ anime.quantidadeeps }} episódios
+                {% if is_granted('ROLE_USER') %} </a> {% endif %}
+
+                {% if is_granted('ROLE_USER') %}
+                <div class="d-flex">
+                    <a href="{{ path('app_edit_anime_form', {anime: anime.id}) }}" class="btn btn-sm btn-primary me-2">
+                        E
+                    </a>
+                    <form method="post" action="{{ path('app_delete_anime', {id: anime.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+
+                        <button class="btn btn-sm btn-danger">
+                            X
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
